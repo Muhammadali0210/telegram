@@ -1,0 +1,9 @@
+{
+  "appId": "org.capacitor.quasar.app",
+  "appName": "telegram",
+  "webDir": "www",
+  "server": {
+    "androidScheme": "https",
+    "url": "http://192.168.56.1:9500"
+  }
+}
