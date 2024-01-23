@@ -1,4 +1,29 @@
 <template>
+  <div>
+    <h4>essential</h4>
+  </div>
+</template>
+<script>
+export default {
+  
+}
+</script>
+<style>
+  
+</style>
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <template>
   <q-item
     clickable
     tag="a"
@@ -46,4 +71,4 @@ export default defineComponent({
     }
   }
 })
-</script>
+</script> -->
