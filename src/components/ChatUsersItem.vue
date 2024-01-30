@@ -35,6 +35,48 @@ export default {
           name: "Muhammadali",
           lastMessage: "Salom",
           online: false,
+          img: "./src/assets/images/my-foto.jpg"
+        },
+        {
+          name: "Muhammadali",
+          lastMessage: "Salom",
+          online: false,
+          img: "./src/assets/images/bg.jpg"
+        },
+        {
+          name: "Muhammadali",
+          lastMessage: "Salom",
+          online: false,
+          img: "./src/assets/images/bg.jpg"
+        },
+        {
+          name: "Muhammadali",
+          lastMessage: "Salom",
+          online: false,
+          img: "./src/assets/images/bg.jpg"
+        },
+        {
+          name: "Muhammadali",
+          lastMessage: "Salom",
+          online: false,
+          img: "./src/assets/images/bg.jpg"
+        },
+        {
+          name: "Muhammadali",
+          lastMessage: "Salom",
+          online: false,
+          img: "./src/assets/images/bg.jpg"
+        },
+        {
+          name: "Muhammadali",
+          lastMessage: "Salom",
+          online: false,
+          img: "./src/assets/images/bg.jpg"
+        },
+        {
+          name: "Muhammadali",
+          lastMessage: "Salom",
+          online: false,
           img: "./src/assets/images/bg.jpg"
         },
         {
@@ -231,6 +273,7 @@ export default {
           width: 100%;
           height: 100%;
           background-size: cover;
+          object-fit: cover;
         }
       }
 
@@ -322,7 +365,11 @@ export default {
     }
 
     width: 100%;
-    height: 100%;
-    border: 1px solid red;
+    height: calc(100vh - 110px);
+    padding-top: 1px;
+    padding-bottom: 15px;
+    // border: 1px solid red;
+    transform: translateY(110px);
+    background-color: #ffffff;
   }
 }</style>

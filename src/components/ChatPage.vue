@@ -1,5 +1,5 @@
 <template>
-    <div class="chat-page-wrapper" :class="[{pageout: pageout}]">
+    <div class="chat-page-wrapper" :class="[{ pageout: pageout }]">
         <div class="chat-navbar">
             <div class="outer-button" @click="chatPageOut">
                 <img src="../assets/icons/arrow-left.svg" alt="<--">
@@ -43,7 +43,8 @@
             <div class="chat-footer">
                 <div class="footer-input-content">
                     <img src="../assets/icons/attach-file.svg" alt="file" class="attach-file">
-                    <input type="text" class="message-input" placeholder="Type Message" v-model="newMessage" id="messageid" autofocus>
+                    <input type="text" class="message-input" placeholder="Type Message" v-model="newMessage" id="messageid"
+                        autofocus>
                     <img src="../assets/icons/stiker.svg" alt="stiker" class="stiker">
                 </div>
                 <div class="voice-mik">
@@ -128,7 +129,7 @@ export default {
     },
     methods: {
         submitForm() {
-            if(this.newMessage !== ""){
+            if (this.newMessage !== "") {
 
                 const readyMessage = {
                     id: 3,
@@ -142,10 +143,10 @@ export default {
                 element.scrollTop = element.scrollHeight;
             }
         },
-        chatPageOut(){
+        chatPageOut() {
             this.pageout = !this.pageout
         },
-        scroller(){
+        scroller() {
             var element = document.getElementById("scrollContainer");
             element.scrollTop = element.scrollHeight;
         }
@@ -158,9 +159,10 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-#sbroll-bottom{
+#sbroll-bottom {
     display: none;
 }
+
 .chat-page-wrapper {
     display: flex;
     flex-direction: column;
@@ -220,7 +222,7 @@ export default {
             display: flex;
             gap: 4px;
             padding: 0;
-            border: 1px solid red;
+            // border: 1px solid red;
 
             // border: 1px solid red;
             .user-navigation-icon {
@@ -254,16 +256,19 @@ export default {
         background-image: url(../assets/images/bg.jpg);
         background-repeat: no-repeat;
         background-size: cover;
+
         // scrollbar-width: thin;
-        &::-webkit-scrollbar{
+        &::-webkit-scrollbar {
             width: 6px;
         }
-        &::-webkit-scrollbar-thumb{
+
+        &::-webkit-scrollbar-thumb {
             background-color: #3a3a3a94;
             border-radius: 3px;
             margin: 0 5px;
         }
-        &::-webkit-scrollbar-track{
+
+        &::-webkit-scrollbar-track {
             background-color: #ffffffa5;
             border-radius: 20px;
             margin-right: 5px;
@@ -272,6 +277,7 @@ export default {
         .message-item-container {
             // cursor: pointer;
             width: 100%;
+
             .message-item {
                 width: 100%;
                 padding: 8px 12px;
@@ -540,34 +546,90 @@ export default {
         width: 100%;
         height: 100vh;
         transition: all .3s ease-out;
+
         .chat-navbar {
             position: relative;
+
             .outer-button {
                 display: block;
                 position: absolute;
                 width: 20px;
                 height: 20px;
-                img{
+
+                img {
                     width: 100%;
                     height: 100%;
                     object-fit: cover;
                 }
             }
+
             .chat-user-content {
                 margin-left: 44px;
             }
-            
+
         }
-        &.pageout{
+
+        &.pageout {
             transform: translateX(100%);
         }
     }
 }
-@media (max-width: 500px){
-    .chat-page-wrapper{
-        position: relative;
+
+@media (max-width: 500px) {
+    .chat-page-wrapper {
+        position: absolute;
         height: 100vh;
-        transform: translateY(-100vh);
+        overflow: hidden;
+        top: 0;
         z-index: 40;
+
+        .chat-navbar {
+            position: relative;
+
+            .outer-button {
+                display: block;
+                position: absolute;
+                width: 20px;
+                height: 20px;
+
+                img {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                }
+            }
+            .user-navigation-content {
+                gap: 4px;
+                .user-navigation-icon {
+                    padding: 4px;
+                    img {
+                        height: 16px;
+                        width: 16px;
+                    }
+                }
+            }
+
+            .chat-user-content {
+                margin-left: 34px;
+
+                .user-text-content {
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    .user-name {
+                        font-size: 14px;
+                        line-height: 18px;
+                    }
+
+                    .last-message {
+                        font-size: 11px;
+                        font-style: normal;
+                        font-weight: 400;
+                        line-height: 18px;
+                    }
+                }
+            }
+
+        }
     }
 }</style>

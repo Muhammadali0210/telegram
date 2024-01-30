@@ -44,7 +44,11 @@
           </div>
         </div>
         <div class="chat-main-content">
-          <router-view />
+          <!-- <router-view /> -->
+          <div class="chat-wrapper">
+            <ChatUsersItem />
+            <ChatPage />
+          </div>
         </div>
       </div>
     </q-page-container>
@@ -53,6 +57,8 @@
 
 <script>
 import { defineComponent, ref } from 'vue'
+import ChatPage from 'src/components/ChatPage.vue'
+import ChatUsersItem from 'src/components/ChatUsersItem.vue'
 
 export default defineComponent({
   name: 'MainLayout',
@@ -67,6 +73,10 @@ export default defineComponent({
       tab: ref('mails')
     }
   },
+  components: {
+    ChatUsersItem,
+    ChatPage
+  }
 
 
 })
@@ -90,8 +100,9 @@ export default defineComponent({
     justify-content: start;
     align-items: center;
     height: 100vh;
-    background-color: #f4f4f4;
+    background-color: #809ffc;
     z-index: 1;
+    min-height: 600px;
 
     .bar-content {
       display: flex;
@@ -124,8 +135,6 @@ export default defineComponent({
 
   .chat-main-content {
     width: 100%;
-    // z-index: 1;
-    // position: relative;
   }
 }
 
@@ -146,9 +155,11 @@ export default defineComponent({
 
       border-right: 0px solid #E1E5EA;
       flex-direction: column;
-      justify-content: start;
+      justify-content: end;
       align-items: flex-start;
-      height: 12vh;
+      height: 110px;
+      min-height: 110px;
+      // border: 1px solid red;
 
       .bar-content {
         flex-direction: row;
@@ -177,6 +188,34 @@ export default defineComponent({
           }
         }
       }
+    }
+  }
+}
+
+
+// --------------------
+.chat-wrapper {
+  display: flex;
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+}
+
+@media (max-width: 798px) {
+  .chat-wrapper {
+    display: block;
+    width: 100%;
+  }
+}
+@media (max-width: 500px) {
+  .page-content{
+    position: relative;
+    padding-top: 0;
+    .chat-wrapper {
+      height: 100vh;
+      position: absolute;
+      top: 0;
+      background-color: #ffffff;
     }
   }
 }
