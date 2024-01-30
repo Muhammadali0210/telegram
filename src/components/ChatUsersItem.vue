@@ -5,29 +5,17 @@
       <input type="text" v-model="chatsearchvalue" class="chat-search" placeholder="Search">
     </div>
     <ul class="user-content">
-      <li class="user-item">
+      <li class="user-item" :class="[{ active: user.online }]" v-for="user in users" :key="user.name">
         <div class="images">
           <div class="online-box"></div>
-          <img src="../assets/images/person1.jpg" alt="" class="user-image">
+          <img :src="user.img" alt="" class="user-image">
         </div>
         <div class="user-text-content">
-          <div class="user-name">Blanche Jaskolski</div>
-          <div class="last-message">natus accusantium et</div>
+          <div class="user-name">{{ user.name }}</div>
+          <div class="last-message">{{ user.lastMessage }}</div>
         </div>
         <div class="last-time">19:45</div>
       </li>
-      <li class="user-item active">
-        <div class="images">
-          <div class="online-box"></div>
-          <img src="../assets/images/person1.jpg" alt="" class="user-image">
-        </div>
-        <div class="user-text-content">
-          <div class="user-name">Blanche Jaskolski</div>
-          <div class="last-message">natus accusantium et</div>
-        </div>
-        <div class="last-time">19:45</div>
-      </li>
-
     </ul>
   </div>
 </template>
@@ -35,7 +23,87 @@
 export default {
   data() {
     return {
-      chatsearchvalue: ""
+      chatsearchvalue: "",
+      users: [
+        {
+          name: "Saidmirzo",
+          lastMessage: "nima gap",
+          online: true,
+          img: "./src/assets/images/person1.jpg"
+        },
+        {
+          name: "Muhammadali",
+          lastMessage: "Salom",
+          online: false,
+          img: "./src/assets/images/bg.jpg"
+        },
+        {
+          name: "Muhammadali",
+          lastMessage: "Salom",
+          online: false,
+          img: "./src/assets/images/bg.jpg"
+        },
+        {
+          name: "Muhammadali",
+          lastMessage: "Salom",
+          online: false,
+          img: "./src/assets/images/bg.jpg"
+        },
+        {
+          name: "Muhammadali",
+          lastMessage: "Salom",
+          online: false,
+          img: "./src/assets/images/bg.jpg"
+        },
+        {
+          name: "Muhammadali",
+          lastMessage: "Salom",
+          online: false,
+          img: "./src/assets/images/bg.jpg"
+        },
+        {
+          name: "Muhammadali",
+          lastMessage: "Salom",
+          online: false,
+          img: "./src/assets/images/bg.jpg"
+        },
+        {
+          name: "Muhammadali",
+          lastMessage: "Salom",
+          online: false,
+          img: "./src/assets/images/bg.jpg"
+        },
+        {
+          name: "Muhammadali",
+          lastMessage: "Salom",
+          online: false,
+          img: "./src/assets/images/bg.jpg"
+        },
+        {
+          name: "Muhammadali",
+          lastMessage: "Salom",
+          online: false,
+          img: "./src/assets/images/bg.jpg"
+        },
+        {
+          name: "Muhammadali",
+          lastMessage: "Salom",
+          online: false,
+          img: "./src/assets/images/bg.jpg"
+        },
+        {
+          name: "Muhammadali",
+          lastMessage: "Salom",
+          online: false,
+          img: "./src/assets/images/bg.jpg"
+        },
+        {
+          name: "Muhammadali",
+          lastMessage: "Salom",
+          online: false,
+          img: "./src/assets/images/bg.jpg"
+        },
+      ]
     }
   },
 }
@@ -76,8 +144,35 @@ export default {
     display: flex;
     flex-direction: column;
     padding: 0 12px;
+    justify-content: start;
+    overflow-y: auto;
+    height: 100%;
+    scrollbar-width: thin;
+
+    &::-webkit-scrollbar-button {
+      display: none;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      width: 0;
+      background-color: #cb5252;
+    }
+
+    &::-webkit-scrollbar-track {
+      width: 0;
+    }
+
+    &::-webkit-scrollbar {
+      width: 0px;
+    }
 
     .user-item {
+      cursor: pointer;
+
+      &:hover {
+        background-color: #c7e5ff;
+      }
+
       list-style-type: none;
       background-color: #ffffff;
       display: flex;
@@ -222,9 +317,10 @@ export default {
 
 @media (max-width: 500px) {
   .user-item-wrap {
-    .search-content{
+    .search-content {
       display: none;
     }
+
     width: 100%;
     height: 100%;
     border: 1px solid red;

@@ -35,7 +35,7 @@ export default defineComponent({
 @media (max-width: 500px) {
   .chat-wrapper {
     height: 88vh;
-    /* border: 2px solid blue; */
+    position: relative;
   }
 }
 </style>

@@ -26,7 +26,7 @@
                 </li>
             </ul>
         </div>
-        <div class="messages-content">
+        <div class="messages-content" id="scrollContainer">
             <li class="message-item-container" v-for="message in messages" :key="message.id">
                 <div class="message-item" :class="[{ me: message.who == 'me' }]">
                     <div class="message-text">
@@ -37,19 +37,20 @@
                     </div>
                 </div>
             </li>
+            <br><br>
         </div>
         <form action="#" class="footer-form" @submit.prevent="submitForm()">
             <div class="chat-footer">
                 <div class="footer-input-content">
                     <img src="../assets/icons/attach-file.svg" alt="file" class="attach-file">
-                    <input type="text" class="message-input" placeholder="Type Message" v-model="newMessage" id="messageid">
+                    <input type="text" class="message-input" placeholder="Type Message" v-model="newMessage" id="messageid" autofocus>
                     <img src="../assets/icons/stiker.svg" alt="stiker" class="stiker">
                 </div>
                 <div class="voice-mik">
                     <img src="../assets/icons/mic-voice.svg" alt="">
                 </div>
-                <button class="voice-mik send-button" type="submit">
-                    <img src="../assets/icons/mic-voice.svg" alt="">
+                <button class="voice-mik send-button" id="send-button" type="submit">
+                    <img src="../assets/icons/send.svg" alt="">
                 </button>
             </div>
         </form>
@@ -127,24 +128,39 @@ export default {
     },
     methods: {
         submitForm() {
-            const readyMessage = {
-                id: 3,
-                message: this.newMessage,
-                time: "10:20",
-                who: "me",
+            if(this.newMessage !== ""){
+
+                const readyMessage = {
+                    id: 3,
+                    message: this.newMessage,
+                    time: "10:20",
+                    who: "me",
+                }
+                this.messages.push(readyMessage)
+                this.newMessage = ""
+                var element = document.getElementById("scrollContainer");
+                element.scrollTop = element.scrollHeight;
             }
-            this.messages.push(readyMessage)
-            this.newMessage = ""
         },
         chatPageOut(){
             this.pageout = !this.pageout
+        },
+        scroller(){
+            var element = document.getElementById("scrollContainer");
+            element.scrollTop = element.scrollHeight;
         }
 
+    },
+    mounted() {
+        this.scroller()
     },
 
 }
 </script>
 <style lang="scss" scoped>
+#sbroll-bottom{
+    display: none;
+}
 .chat-page-wrapper {
     display: flex;
     flex-direction: column;
@@ -172,7 +188,7 @@ export default {
             gap: 10px;
             height: 40px;
             cursor: pointer;
-            border: 1px solid red;
+            // border: 1px solid red;
 
             .user-image {
                 width: 40px;
@@ -226,18 +242,36 @@ export default {
 
     .messages-content {
         height: 100%;
+        width: 100%;
         background-color: #F6F7F9;
         padding: 20px;
-        overflow-y: scroll;
+        scroll-behavior: smooth;
+        overflow: auto;
+        justify-content: start;
         display: flex;
         flex-direction: column;
         gap: 10px;
         background-image: url(../assets/images/bg.jpg);
-        background-size: contain;
+        background-repeat: no-repeat;
+        background-size: cover;
+        // scrollbar-width: thin;
+        &::-webkit-scrollbar{
+            width: 6px;
+        }
+        &::-webkit-scrollbar-thumb{
+            background-color: #3a3a3a94;
+            border-radius: 3px;
+            margin: 0 5px;
+        }
+        &::-webkit-scrollbar-track{
+            background-color: #ffffffa5;
+            border-radius: 20px;
+            margin-right: 5px;
+        }
 
         .message-item-container {
+            // cursor: pointer;
             width: 100%;
-
             .message-item {
                 width: 100%;
                 padding: 8px 12px;
@@ -284,6 +318,7 @@ export default {
 
     .footer-form {
         height: 86px;
+        background-color: #fff;
 
         .chat-footer {
             height: 86px;
@@ -499,11 +534,11 @@ export default {
 @media (max-width: 798px) {
 
     .chat-page-wrapper {
-        // display: none;
         position: absolute;
         top: 0;
         left: 0;
         width: 100%;
+        height: 100vh;
         transition: all .3s ease-out;
         .chat-navbar {
             position: relative;
@@ -528,8 +563,11 @@ export default {
         }
     }
 }
-@media (max-width: 798px){
+@media (max-width: 500px){
     .chat-page-wrapper{
-        height: 88vh;
+        position: relative;
+        height: 100vh;
+        transform: translateY(-100vh);
+        z-index: 40;
     }
 }</style>

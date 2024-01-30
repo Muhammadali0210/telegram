@@ -13,7 +13,7 @@
           <div class="bar-content">
             <div class="chat-tab">
               <div class="tab-icon">
-                <img src="../assets/icons/personal1.svg" alt="personal">
+                <img src="../assets/icons/all.svg" alt="personal">
               </div>
               <div class="text-caption">All</div>
             </div>
@@ -91,6 +91,7 @@ export default defineComponent({
     align-items: center;
     height: 100vh;
     background-color: #f4f4f4;
+    z-index: 1;
 
     .bar-content {
       display: flex;
@@ -123,6 +124,8 @@ export default defineComponent({
 
   .chat-main-content {
     width: 100%;
+    // z-index: 1;
+    // position: relative;
   }
 }
 
@@ -130,9 +133,11 @@ export default defineComponent({
   .page-content {
     flex-direction: column;
     height: 100vh;
+    position: relative;
     // border: 1px solid black;
 
     .navigation-bar {
+      z-index: 1;
       .setting-btn {
         height: 50px;
         width: 50px;
