@@ -4,8 +4,19 @@
       <img class="search-icon" src="../assets/icons/search.svg" alt="search">
       <input type="text" v-model="chatsearchvalue" class="chat-search" placeholder="Search">
     </div>
-    <ul class="user-content">
-        <li transition="flip-right" class="user-item" :class="[{ active: user.id == activeUser }]" v-for="user in users" :key="user.id" @click="activeuserFunction(user.id)">
+    <q-tabs v-model="tab" v-if="1">
+      <q-tab name="all" label="Mails12" />
+      <q-tab name="personal" label="Alarms" />
+      <q-tab name="group" label="Movies" />
+      <q-tab name="channel" label="Movies" />
+      <q-tab name="bot" label="Movies" />
+    </q-tabs>
+    <p>{{ activeTab }}</p>
+    
+    <q-tab-panels class="user-content-wrapper" v-model="tab" animated>
+      <ul name="all" class="user-content">
+        <li transition="flip-right" class="user-item" :class="[{ active: user.id == activeUser }, {online: !user.online}]" v-for="user in users"
+          :key="user.id" @click="activeuserFunction(user.id)">
           <div class="images">
             <div class="online-box"></div>
             <img :src="user.img" alt="" class="user-image">
@@ -16,11 +27,73 @@
           </div>
           <div class="last-time">19:45</div>
         </li>
-    </ul>
+      </ul>
+      <ul name="personal" class="user-content">
+        <li transition="flip-right" class="user-item" :class="[{ active: user.id == activeUser }]" v-for="user in users"
+          :key="user.id" @click="activeuserFunction(user.id)">
+          <div class="images">
+            <div class="online-box"></div>
+            <img :src="user.img" alt="" class="user-image">
+          </div>
+          <div class="user-text-content">
+            <div class="user-name">{{ user.name }}</div>
+            <div class="last-message">{{ user.lastMessage }}</div>
+          </div>
+          <div class="last-time">19:45</div>
+        </li>
+      </ul>
+      <ul name="group" class="user-content">
+        <li transition="flip-right" class="user-item" :class="[{ active: user.id == activeUser }]" v-for="user in users"
+          :key="user.id" @click="activeuserFunction(user.id)">
+          <div class="images">
+            <div class="online-box"></div>
+            <img :src="user.img" alt="" class="user-image">
+          </div>
+          <div class="user-text-content">
+            <div class="user-name">{{ user.name }}</div>
+            <div class="last-message">{{ user.lastMessage }}</div>
+          </div>
+          <div class="last-time">19:45</div>
+        </li>
+      </ul>
+      <ul name="channel" class="user-content">
+        <li transition="flip-right" class="user-item" :class="[{ active: user.id == activeUser }]" v-for="user in users"
+          :key="user.id" @click="activeuserFunction(user.id)">
+          <div class="images">
+            <div class="online-box"></div>
+            <img :src="user.img" alt="" class="user-image">
+          </div>
+          <div class="user-text-content">
+            <div class="user-name">{{ user.name }}</div>
+            <div class="last-message">{{ user.lastMessage }}</div>
+          </div>
+          <div class="last-time">19:45</div>
+        </li>
+      </ul>
+      <ul name="bot" class="user-content">
+        <li transition="flip-right" class="user-item" :class="[{ active: user.id == activeUser }]" v-for="user in users"
+          :key="user.id" @click="activeuserFunction(user.id)">
+          <div class="images">
+            <div class="online-box"></div>
+            <img :src="user.img" alt="" class="user-image">
+          </div>
+          <div class="user-text-content">
+            <div class="user-name">{{ user.name }}</div>
+            <div class="last-message">{{ user.lastMessage }}</div>
+          </div>
+          <div class="last-time">19:45</div>
+        </li>
+      </ul>
+    </q-tab-panels>
   </div>
 </template>
 <script>
+
+import { ref } from 'vue'
 export default {
+  props:{
+    activeTab: String
+  },
   data() {
     return {
       chatsearchvalue: "",
@@ -64,7 +137,7 @@ export default {
           id: 6,
           name: "Muhammadali",
           lastMessage: "Salom",
-          online: false,
+          online: true,
           img: "./src/assets/images/bg.jpg"
         },
         {
@@ -85,7 +158,7 @@ export default {
           id: 9,
           name: "Muhammadali",
           lastMessage: "Salom",
-          online: false,
+          online: true,
           img: "./src/assets/images/bg.jpg"
         },
         {
@@ -166,17 +239,33 @@ export default {
           img: "./src/assets/images/bg.jpg"
         }
       ],
-      activeUser: 1
+      activeUser: "1",
+      myActiveTab: "all"
+    }
+  },
+  setup() {
+    return {
+      tab: ref('all')
     }
   },
   methods: {
-    activeuserFunction(e){
+    activeuserFunction(e) {
       this.activeUser = e
+    },
+    tabChanger(){
+      this.myActiveTab = this.activeTab
+      console.log("tab", this.myActiveTab)
+    },
+    log(){
+      console.log("sasasa")
     }
+  },
+  mounted() {
+    this.tabChanger()
   },
 }
 </script>
-<style lang="scss" scoped>
+<style lang="scss" >
 .user-item-wrap {
   width: 500px;
   height: 100vh;
@@ -208,133 +297,145 @@ export default {
     }
   }
 
-  .user-content {
-    display: flex;
-    flex-direction: column;
-    padding: 0 12px;
-    justify-content: start;
-    overflow-y: auto;
+  .user-content-wrapper{
     height: 100%;
-    scrollbar-width: thin;
-
-    &::-webkit-scrollbar-button {
-      display: none;
-    }
-
-    &::-webkit-scrollbar-thumb {
-      width: 0;
-      background-color: #cb5252;
-    }
-
-    &::-webkit-scrollbar-track {
-      width: 0;
-    }
-
-    &::-webkit-scrollbar {
-      width: 0px;
-    }
-
-    .user-item {
-      cursor: pointer;
-      transition: all .2s;
-
-      &:hover {
-        background-color: #c7e5ff;
-      }
-
-      list-style-type: none;
-      background-color: #ffffff;
+    // border: 1px solid red;
+    padding: 0;
+    .user-content {
       display: flex;
-      align-items: center;
-      padding: 6px 17px 6px 8px;
-      gap: 10px;
-      border-radius: 12px;
-      position: relative;
-
-      &.active {
-        background-color: #3348FF;
-
+      flex-direction: column;
+      padding: 0 12px;
+      justify-content: start;
+      overflow-y: auto;
+      height: 100%;
+      scrollbar-width: thin;
+  
+      &::-webkit-scrollbar-button {
+        display: none;
+      }
+  
+      &::-webkit-scrollbar-thumb {
+        width: 0;
+        background-color: #cb5252;
+      }
+  
+      &::-webkit-scrollbar-track {
+        width: 0;
+      }
+  
+      &::-webkit-scrollbar {
+        width: 0px;
+      }
+  
+      .user-item {
+        cursor: pointer;
+        transition: all .2s;
+  
+        &:hover {
+          background-color: #c7e5ff;
+        }
+  
+        list-style-type: none;
+        background-color: #ffffff;
+        display: flex;
+        align-items: center;
+        padding: 6px 17px 6px 8px;
+        gap: 10px;
+        border-radius: 12px;
+        position: relative;
+  
+        &.active {
+          background-color: #3348FF;
+  
+          .user-text-content {
+            .user-name {
+              color: #fff;
+              font-size: 15px;
+              font-style: normal;
+              font-weight: 500;
+              line-height: 20px;
+            }
+  
+            .last-message {
+              color: #F6F7F9;
+              font-size: 15px;
+              font-style: normal;
+              font-weight: 400;
+              line-height: 20px;
+            }
+          }
+  
+          .last-time {
+            color: #D8DFE7;
+          }
+        }
+        &.online{
+          .images{
+            .online-box{
+              background-color: #848484;
+            }
+          }
+        }
+  
+        .images {
+          border-radius: 50%;
+          // overflow: hidden;
+          width: 56px;
+          height: 56px;
+          position: relative;
+  
+          .online-box {
+            position: absolute;
+            bottom: 2px;
+            right: 2px;
+            border-radius: 50%;
+            border: 1px solid #696969;
+            width: 10px;
+            height: 10px;
+            background-color: #49ed24;
+          }
+  
+          .user-image {
+            border-radius: 50%;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            object-fit: cover;
+          }
+        }
+  
         .user-text-content {
+          height: 100%;
+  
           .user-name {
-            color: #fff;
+            color: #181D25;
             font-size: 15px;
             font-style: normal;
             font-weight: 500;
             line-height: 20px;
           }
-
+  
           .last-message {
-            color: #F6F7F9;
+            color: #929FB1;
             font-size: 15px;
             font-style: normal;
             font-weight: 400;
             line-height: 20px;
           }
         }
-
+  
         .last-time {
-          color: #D8DFE7;
-        }
-      }
-
-      .images {
-        border-radius: 50%;
-        // overflow: hidden;
-        width: 56px;
-        height: 56px;
-        position: relative;
-
-        .online-box {
           position: absolute;
-          bottom: 2px;
-          right: 2px;
-          border-radius: 50%;
-          border: 1px solid #696969;
-          width: 10px;
-          height: 10px;
-          background-color: #49ed24;
-        }
-
-        .user-image {
-          border-radius: 50%;
-          width: 100%;
-          height: 100%;
-          background-size: cover;
-          object-fit: cover;
-        }
-      }
-
-      .user-text-content {
-        height: 100%;
-
-        .user-name {
-          color: #181D25;
-          font-size: 15px;
-          font-style: normal;
-          font-weight: 500;
-          line-height: 20px;
-        }
-
-        .last-message {
+          right: 17px;
+          top: 16px;
           color: #929FB1;
           font-size: 15px;
           font-style: normal;
           font-weight: 400;
           line-height: 20px;
         }
+  
       }
-
-      .last-time {
-        position: absolute;
-        right: 17px;
-        top: 16px;
-        color: #929FB1;
-        font-size: 15px;
-        font-style: normal;
-        font-weight: 400;
-        line-height: 20px;
-      }
-
     }
   }
 }
@@ -394,9 +495,10 @@ export default {
     width: 100%;
     height: calc(100vh - 110px);
     padding-top: 1px;
-    padding-bottom: 15px;
+    padding-bottom: 0px;
     // border: 1px solid red;
     transform: translateY(110px);
     background-color: #ffffff;
   }
-}</style>
+}
+</style>

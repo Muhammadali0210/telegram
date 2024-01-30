@@ -23,7 +23,7 @@
         </div>
         <div class="chat-main-content">
           <div class="chat-wrapper">
-            <ChatUsersItem />
+            <ChatUsersItem :activeTab="activeTab" />
             <ChatPage />
           </div>
         </div>
@@ -59,37 +59,37 @@ export default defineComponent({
     return {
       navigations: [
         {
-          key: "1",
+          key: "all",
           name: "All",
           img1: "./src/assets/icons/all.svg",
           img2: "./src/assets/icons/all-dark.svg"
         },
         {
-          key: "2",
+          key: "personal",
           name: "Personal",
           img1: "./src/assets/icons/personal1.svg",
           img2: "./src/assets/icons/personal2.svg"
         },
         {
-          key: "3",
+          key: "group",
           name: "Group",
           img1: "./src/assets/icons/group1.svg",
           img2: "./src/assets/icons/group2.svg"
         },
         {
-          key: "4",
+          key: "channel",
           name: "Channel",
           img1: "./src/assets/icons/personal1.svg",
           img2: "./src/assets/icons/personal2.svg"
         },
         {
-          key: "5",
+          key: "bot",
           name: "Bot",
           img1: "./src/assets/icons/personal1.svg",
           img2: "./src/assets/icons/personal2.svg"
         },
       ],
-      activeTab: "1"
+      activeTab: "all"
     }
   },
   methods: {
