@@ -11,40 +11,17 @@
             <q-btn flat dense round icon="menu" aria-label="Menu" @click="toggleLeftDrawer" />
           </div>
           <div class="bar-content">
-            <div class="chat-tab">
+            <div class="chat-tab" v-for="tab in navigations" :key="tab.key" @click="activetabfunction(tab.key)"
+              :class="[{ active: tab.key == activeTab }]">
               <div class="tab-icon">
-                <img src="../assets/icons/all.svg" alt="personal">
+                <img :src="tab.img1" alt="personal" class="lite-icon">
+                <img :src="tab.img2" alt="personal" class="dark-icon">
               </div>
-              <div class="text-caption">All</div>
-            </div>
-            <div class="chat-tab">
-              <div class="tab-icon">
-                <img src="../assets/icons/personal1.svg" alt="personal">
-              </div>
-              <div class="text-caption">Personal</div>
-            </div>
-            <div class="chat-tab">
-              <div class="tab-icon">
-                <img src="../assets/icons/group1.svg" alt="personal">
-              </div>
-              <div class="text-caption">Group</div>
-            </div>
-            <div class="chat-tab">
-              <div class="tab-icon">
-                <img src="../assets/icons/personal1.svg" alt="personal">
-              </div>
-              <div class="text-caption">Chanel</div>
-            </div>
-            <div class="chat-tab">
-              <div class="tab-icon">
-                <img src="../assets/icons/group1.svg" alt="personal">
-              </div>
-              <div class="text-caption">Bot</div>
+              <div class="text-caption">{{ tab.name }}</div>
             </div>
           </div>
         </div>
         <div class="chat-main-content">
-          <!-- <router-view /> -->
           <div class="chat-wrapper">
             <ChatUsersItem />
             <ChatPage />
@@ -52,6 +29,7 @@
         </div>
       </div>
     </q-page-container>
+    <router-view />
   </q-layout>
 </template>
 
@@ -76,7 +54,49 @@ export default defineComponent({
   components: {
     ChatUsersItem,
     ChatPage
-  }
+  },
+  data() {
+    return {
+      navigations: [
+        {
+          key: "1",
+          name: "All",
+          img1: "./src/assets/icons/all.svg",
+          img2: "./src/assets/icons/all-dark.svg"
+        },
+        {
+          key: "2",
+          name: "Personal",
+          img1: "./src/assets/icons/personal1.svg",
+          img2: "./src/assets/icons/personal2.svg"
+        },
+        {
+          key: "3",
+          name: "Group",
+          img1: "./src/assets/icons/group1.svg",
+          img2: "./src/assets/icons/group2.svg"
+        },
+        {
+          key: "4",
+          name: "Channel",
+          img1: "./src/assets/icons/personal1.svg",
+          img2: "./src/assets/icons/personal2.svg"
+        },
+        {
+          key: "5",
+          name: "Bot",
+          img1: "./src/assets/icons/personal1.svg",
+          img2: "./src/assets/icons/personal2.svg"
+        },
+      ],
+      activeTab: "1"
+    }
+  },
+  methods: {
+    activetabfunction(e) {
+      this.activeTab = e
+    }
+  },
 
 
 })
@@ -118,15 +138,45 @@ export default defineComponent({
         flex-direction: column;
         align-items: center;
         justify-content: center;
+        // border: 1px solid red;
+        width: 70px;
+
+        .text-caption {
+          color: #222222;
+          font-weight: 400;
+        }
 
         .tab-icon {
           width: 24px;
           height: 24px;
 
+          .dark-icon {
+            display: none;
+          }
+
+          .lite-icon {
+            display: block;
+          }
+
           img {
             width: 100%;
             height: 100%;
             object-fit: cover;
+          }
+        }
+
+        &.active {
+          .dark-icon {
+            display: block;
+          }
+
+          .lite-icon {
+            display: none;
+          }
+
+          .text-caption {
+            color: #222222;
+            font-weight: 600;
           }
         }
       }
@@ -147,6 +197,7 @@ export default defineComponent({
 
     .navigation-bar {
       z-index: 1;
+
       .setting-btn {
         height: 50px;
         width: 50px;
@@ -207,10 +258,12 @@ export default defineComponent({
     width: 100%;
   }
 }
+
 @media (max-width: 500px) {
-  .page-content{
+  .page-content {
     position: relative;
     padding-top: 0;
+
     .chat-wrapper {
       height: 100vh;
       position: absolute;
@@ -218,5 +271,4 @@ export default defineComponent({
       background-color: #ffffff;
     }
   }
-}
-</style>
+}</style>

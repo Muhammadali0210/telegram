@@ -5,17 +5,17 @@
       <input type="text" v-model="chatsearchvalue" class="chat-search" placeholder="Search">
     </div>
     <ul class="user-content">
-      <li class="user-item" :class="[{ active: user.online }]" v-for="user in users" :key="user.name">
-        <div class="images">
-          <div class="online-box"></div>
-          <img :src="user.img" alt="" class="user-image">
-        </div>
-        <div class="user-text-content">
-          <div class="user-name">{{ user.name }}</div>
-          <div class="last-message">{{ user.lastMessage }}</div>
-        </div>
-        <div class="last-time">19:45</div>
-      </li>
+        <li transition="flip-right" class="user-item" :class="[{ active: user.id == activeUser }]" v-for="user in users" :key="user.id" @click="activeuserFunction(user.id)">
+          <div class="images">
+            <div class="online-box"></div>
+            <img :src="user.img" alt="" class="user-image">
+          </div>
+          <div class="user-text-content">
+            <div class="user-name">{{ user.name }}</div>
+            <div class="last-message">{{ user.lastMessage }}</div>
+          </div>
+          <div class="last-time">19:45</div>
+        </li>
     </ul>
   </div>
 </template>
@@ -26,126 +26,152 @@ export default {
       chatsearchvalue: "",
       users: [
         {
+          id: 1,
           name: "Saidmirzo",
           lastMessage: "nima gap",
           online: true,
           img: "./src/assets/images/person1.jpg"
         },
         {
+          id: 2,
           name: "Muhammadali",
           lastMessage: "Salom",
           online: false,
           img: "./src/assets/images/my-foto.jpg"
         },
         {
+          id: 3,
           name: "Muhammadali",
           lastMessage: "Salom",
           online: false,
           img: "./src/assets/images/bg.jpg"
         },
         {
+          id: 4,
           name: "Muhammadali",
           lastMessage: "Salom",
           online: false,
           img: "./src/assets/images/bg.jpg"
         },
         {
+          id: 5,
           name: "Muhammadali",
           lastMessage: "Salom",
           online: false,
           img: "./src/assets/images/bg.jpg"
         },
         {
+          id: 6,
           name: "Muhammadali",
           lastMessage: "Salom",
           online: false,
           img: "./src/assets/images/bg.jpg"
         },
         {
+          id: 7,
           name: "Muhammadali",
           lastMessage: "Salom",
           online: false,
           img: "./src/assets/images/bg.jpg"
         },
         {
+          id: 8,
           name: "Muhammadali",
           lastMessage: "Salom",
           online: false,
           img: "./src/assets/images/bg.jpg"
         },
         {
+          id: 9,
           name: "Muhammadali",
           lastMessage: "Salom",
           online: false,
           img: "./src/assets/images/bg.jpg"
         },
         {
+          id: 10,
           name: "Muhammadali",
           lastMessage: "Salom",
           online: false,
           img: "./src/assets/images/bg.jpg"
         },
         {
+          id: 11,
           name: "Muhammadali",
           lastMessage: "Salom",
           online: false,
           img: "./src/assets/images/bg.jpg"
         },
         {
+          id: 12,
           name: "Muhammadali",
           lastMessage: "Salom",
           online: false,
           img: "./src/assets/images/bg.jpg"
         },
         {
+          id: 13,
           name: "Muhammadali",
           lastMessage: "Salom",
           online: false,
           img: "./src/assets/images/bg.jpg"
         },
         {
+          id: 14,
           name: "Muhammadali",
           lastMessage: "Salom",
           online: false,
           img: "./src/assets/images/bg.jpg"
         },
         {
+          id: 15,
           name: "Muhammadali",
           lastMessage: "Salom",
           online: false,
           img: "./src/assets/images/bg.jpg"
         },
         {
+          id: 16,
           name: "Muhammadali",
           lastMessage: "Salom",
           online: false,
           img: "./src/assets/images/bg.jpg"
         },
         {
+          id: 17,
           name: "Muhammadali",
           lastMessage: "Salom",
           online: false,
           img: "./src/assets/images/bg.jpg"
         },
         {
+          id: 18,
           name: "Muhammadali",
           lastMessage: "Salom",
           online: false,
           img: "./src/assets/images/bg.jpg"
         },
         {
+          id: 19,
           name: "Muhammadali",
           lastMessage: "Salom",
           online: false,
           img: "./src/assets/images/bg.jpg"
         },
         {
+          id: 20,
           name: "Muhammadali",
           lastMessage: "Salom",
           online: false,
           img: "./src/assets/images/bg.jpg"
-        },
-      ]
+        }
+      ],
+      activeUser: 1
+    }
+  },
+  methods: {
+    activeuserFunction(e){
+      this.activeUser = e
     }
   },
 }
@@ -210,6 +236,7 @@ export default {
 
     .user-item {
       cursor: pointer;
+      transition: all .2s;
 
       &:hover {
         background-color: #c7e5ff;
