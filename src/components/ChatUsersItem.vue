@@ -4,14 +4,13 @@
       <img class="search-icon" src="../assets/icons/search.svg" alt="search">
       <input type="text" v-model="chatsearchvalue" class="chat-search" placeholder="Search">
     </div>
-    <q-tabs v-model="tab" v-if="1">
-      <q-tab name="all" label="Mails12" />
-      <q-tab name="personal" label="Alarms" />
-      <q-tab name="group" label="Movies" />
-      <q-tab name="channel" label="Movies" />
-      <q-tab name="bot" label="Movies" />
+    <q-tabs v-model="tab" v-if="1" class="q-tabs">
+      <q-tab id="tab1" name="all"/>
+      <q-tab id="tab2" name="personal"/>
+      <q-tab id="tab3" name="group"/>
+      <q-tab id="tab4" name="channel"/>
+      <q-tab id="tab5" name="bot"/>
     </q-tabs>
-    <p>{{ activeTab }}</p>
     
     <q-tab-panels class="user-content-wrapper" v-model="tab" animated>
       <ul name="all" class="user-content">
@@ -88,6 +87,7 @@
   </div>
 </template>
 <script>
+
 
 import { ref } from 'vue'
 export default {
@@ -239,8 +239,7 @@ export default {
           img: "./src/assets/images/bg.jpg"
         }
       ],
-      activeUser: "1",
-      myActiveTab: "all"
+      activeUser: "1"
     }
   },
   setup() {
@@ -251,21 +250,30 @@ export default {
   methods: {
     activeuserFunction(e) {
       this.activeUser = e
-    },
-    tabChanger(){
-      this.myActiveTab = this.activeTab
-      console.log("tab", this.myActiveTab)
-    },
-    log(){
-      console.log("sasasa")
     }
   },
-  mounted() {
-    this.tabChanger()
-  },
+  watch: {
+    activeTab(newValue) {
+      if(newValue === 'all'){
+        document.getElementById("tab1").click()
+      } else if(newValue === 'personal'){
+        document.getElementById("tab2").click()
+      } else if(newValue === 'group'){
+        document.getElementById("tab3").click()
+      } else if(newValue === 'channel'){
+        document.getElementById("tab4").click()
+      } else {
+        document.getElementById("tab5").click()
+      }
+      // Your code here to handle the change
+    }
+  }
 }
 </script>
 <style lang="scss" >
+.q-tabs{
+  display: none;
+}
 .user-item-wrap {
   width: 500px;
   height: 100vh;
